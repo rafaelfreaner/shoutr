@@ -1,6 +1,23 @@
+require "monban/constraints/signed_in"
+require "monban/constraints/signed_out"
+
 Rails.application.routes.draw do
+  constraints Monban::Constraints::SignedIn.new do
+    root "dashboards#show", as: :dashboard
+  end
+
+  root to: "homes#show"
   resource :session, only: [:new, :create, :destroy]
-  resources :users, only: [:new, :create]
+  resources :users, only: [:new, :create, :show] do
+    member do
+      post "follow" => "following_relationships#create"
+      delete "unfollow" => "following_relationships#destroy"
+    end
+  end
+  resources :text_shouts, only: [:create]
+  resources :photo_shouts, only: [:create]
+  resource :dashboard, only: [:show] 
+end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -55,4 +72,4 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
-end
+

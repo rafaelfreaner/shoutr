@@ -1,0 +1,4 @@
+<%= div_for(shout) do %> <!-- this is so we can see each shout on a different line and not all on the same one -->
+  <%= render shout.content %> by <%= link_to shout.user.username, shout.user %>
+<% end %>
+

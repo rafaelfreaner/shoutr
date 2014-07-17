@@ -3,6 +3,7 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+
   end
 
   def create
@@ -16,10 +17,15 @@ class UsersController < ApplicationController
     end
   end
 
+  def show
+    @user = User.find_by(username: params[:id]) #THIS IS SO WE CAN HAVE THE ROUTE USER/USERNAME
+    @shouts = @user.shouts
+  end
+
   private
 
   def user_params
-    params.require(:user).permit(:email, :password)
+    params.require(:user).permit(:username, :email, :password)
   end
 end
 

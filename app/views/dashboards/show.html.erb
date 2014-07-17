@@ -1,0 +1,39 @@
+<section>
+	<h2>Shouts</h2>
+<%= form_for([@textshout]) do |form| %>
+  <div>
+  	<%= form.label :content %>
+  	<%= form.text_field :content %>
+  </div>
+  <%= form.submit "Shout" %>
+<% end %>
+<%= form_for([@photoshout]) do |form| %>
+  <div>
+  	<%= form.label :image %>
+  	<%= form.file_field :image %>
+  </div>
+  <%= form.submit "Shout" %>
+<% end %>
+</section>
+
+<section class="followed-users">
+  <header>
+    <h1>Followed Users</h1>
+    <p>Follow's <%= render @user.followed_users %></p>
+  </header>
+</section>
+
+<section class="followers">
+  <header>
+    <h1>Followers</h1>
+    <p>Followed by <%= render @user.followers %></p>
+  </header>
+</section>
+
+
+<div class="timeline">
+  <header>
+    <h1>Shouts</h1>
+  </header>
+  <%= render current_user.timeline %>
+</div>
